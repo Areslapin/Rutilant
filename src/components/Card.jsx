@@ -5,7 +5,7 @@ const Card =({
 })=>{
     return <>
     <p>{value}</p>
-<img src={Back} alt="Ta mère" />
+<img src={Back} alt="Carte" />
     </>
 }
 export default Card
