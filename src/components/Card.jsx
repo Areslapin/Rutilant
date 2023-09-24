@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Card = ({
   card,
@@ -12,9 +12,10 @@ const Card = ({
   setSecondStep,
   thirdStep,
   setThirdStep,
+  isWon,
+  setIsWon,
 }) => {
   const [isClickable, setIsClickable] = useState(true);
-  const [fliped, setFliped] = useState(false);
 
   const BackPath = `src/assets/Carrds/back/0${card.back}_Back.png`;
   const FrontPath = `src/assets/Carrds/front/0${card.value}_Front.png`;
@@ -39,10 +40,15 @@ const Card = ({
       setCardsClicked({ ...cardsClicked, card1: true });
       setIsClickable(false);
       alert('1');
-      setFliped(true);
     } else {
       console.log('perdu');
       setIsLost(true);
+      setIsClickable(false);
+      setCardsClicked({
+        card1: false,
+        card2: false,
+        card3: false,
+      });
     }
   };
   const secondStepPlay = () => {
@@ -52,37 +58,38 @@ const Card = ({
       setCardsClicked({ ...cardsClicked, card2: true });
       setIsClickable(false);
       alert('2');
-      setFliped(true);
     } else {
       console.log('perdu2');
       setIsLost(true);
+      setIsClickable(false);
+
+      setCardsClicked({
+        card1: false,
+        card2: false,
+        card3: false,
+      });
     }
   };
   const thirdStepPlay = () => {
     if (card.value === 3 && cardsClicked.card2 && cardsClicked.card1) {
       setCardsClicked({ ...cardsClicked, card3: true });
       setIsClickable(false);
-      alert('you win');
-      setCardsClicked({
-        card1: false,
-        card2: false,
-        card3: false,
-      });
+      setIsWon(true);
       setThirdStep(false);
       setFirstStep(true);
-      setFliped(true);
     }
   };
 
   return (
     <>
       <div className='card' onClick={() => playCard()}>
-        {!fliped ? (
+        {!cardsClicked['card' + card.value] ? (
           <img src={BackPath} alt='Carte' />
         ) : (
           <img src={FrontPath} alt='Carte' />
-        )}{' '}
+        )}
       </div>
+      <span>{card.value}</span>
     </>
   );
 };

@@ -12,6 +12,7 @@ const App = () => {
   const [cards, setCards] = useState([]);
 
   const [isLost, setIsLost] = useState(false);
+  const [isWon, setIsWon] = useState(false);
   const [firstStep, setFirstStep] = useState(true);
   const [secondStep, setSecondStep] = useState(false);
   const [thirdStep, setThirdStep] = useState(false);
@@ -22,18 +23,16 @@ const App = () => {
       [array[i], array[j]] = [array[j], array[i]];
     }
   }
-  useEffect(() => {
-    if (isLost) {
-      setCardsClicked({
-        card1: false,
-        card2: false,
-        card3: false,
-      });
-      alert('perdu');
-    }
-  }, [isLost]);
 
   useEffect(() => {
+    if (isLost) {
+      alert('perdu');
+      window.location.reload();
+    }
+    if (isWon) {
+      alert('gagné');
+      window.location.reload();
+    }
     const backValues = [1, 2, 3];
     const valueValues = [1, 2, 3];
 
@@ -50,7 +49,7 @@ const App = () => {
       array.push(card);
     }
     setCards(array);
-  }, []);
+  }, [isLost, isWon]);
 
   useEffect(() => {
     if (cardsClicked.card1 && cardsClicked.card2 && cardsClicked.card3) {
@@ -76,6 +75,8 @@ const App = () => {
               setSecondStep={setSecondStep}
               thirdStep={thirdStep}
               setThirdStep={setThirdStep}
+              isWon={isWon}
+              setIsWon={setIsWon}
             />
           );
         })}
