@@ -1,11 +1,13 @@
-import Back from "../assets/Carrds/back/01_Back.png"
+const Card = ({ card }) => {
+  const BackPath = `src/assets/Carrds/back/0${card.back}_Back.png`;
 
-const Card =({
- value
-})=>{
-    return <>
-    <p>{value}</p>
-<img src={Back} alt="Carte" />
+  return (
+    <>
+      <div className='card'>
+        <img src={BackPath} alt='Carte' />
+        <span className='card-value'>{card.value}</span>
+      </div>
     </>
-}
-export default Card
+  );
+};
+export default Card;
