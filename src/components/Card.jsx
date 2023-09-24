@@ -74,9 +74,9 @@ const Card = ({
     if (card.value === 3 && cardsClicked.card2 && cardsClicked.card1) {
       setCardsClicked({ ...cardsClicked, card3: true });
       setIsClickable(false);
-      setIsWon(true);
       setThirdStep(false);
       setFirstStep(true);
+      setIsWon(true);
     }
   };
 
@@ -89,7 +89,7 @@ const Card = ({
           <img src={FrontPath} alt='Carte' />
         )}
       </div>
-      <span>{card.value}</span>
+      {/* <span>{card.value}</span> */}
     </>
   );
 };
