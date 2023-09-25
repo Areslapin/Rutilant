@@ -1,6 +1,6 @@
-import Card from './components/Card';
-import { useState, useEffect } from 'react';
-import './App.css';
+import Card from "./components/Card";
+import { useState, useEffect } from "react";
+import "./App.css";
 
 const App = () => {
   const [cardsClicked, setCardsClicked] = useState({
@@ -10,7 +10,6 @@ const App = () => {
   });
 
   const [cards, setCards] = useState([]);
-
   const [isLost, setIsLost] = useState(false);
   const [isWon, setIsWon] = useState(false);
   const [firstStep, setFirstStep] = useState(true);
@@ -24,23 +23,23 @@ const App = () => {
     }
   }
 
-  useEffect(() => {
-    if (isLost) {
-      alert('perdu');
-      window.location.reload();
-    }
-    if (isWon) {
-      alert('gagné');
-      window.location.reload();
-    }
+  function startLevel3() {
     const backValues = [1, 2, 3];
     const valueValues = [1, 2, 3];
-
+    const array = [];
+    setCards([]);
+    setIsLost(false);
+    setIsWon(false);
+    setFirstStep(true);
+    setSecondStep(false);
+    setThirdStep(false);
+    setCardsClicked({
+      card1: false,
+      card2: false,
+      card3: false,
+    });
     shuffleArray(backValues);
     shuffleArray(valueValues);
-
-    const array = [];
-
     for (let i = 0; i < 3; i++) {
       const card = {
         back: backValues.pop(),
@@ -49,11 +48,26 @@ const App = () => {
       array.push(card);
     }
     setCards(array);
+  }
+
+  useEffect(() => {
+    startLevel3();
+  }, []);
+
+  useEffect(() => {
+    if (isLost) {
+      alert("perdu");
+      startLevel3();
+    }
+    if (isWon) {
+      alert("gagné");
+      startLevel3();
+    }
   }, [isLost, isWon]);
 
   useEffect(() => {
     if (cardsClicked.card1 && cardsClicked.card2 && cardsClicked.card3) {
-      console.log('You win!');
+      console.log("You win!");
     }
   }, [cardsClicked]);
 

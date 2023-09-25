@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const Card = ({
   card,
@@ -39,9 +39,9 @@ const Card = ({
       setSecondStep(true);
       setCardsClicked({ ...cardsClicked, card1: true });
       setIsClickable(false);
-      alert('1');
+      alert("1");
     } else {
-      console.log('perdu');
+      console.log("perdu");
       setIsLost(true);
       setIsClickable(false);
       setCardsClicked({
@@ -57,9 +57,9 @@ const Card = ({
       setThirdStep(true);
       setCardsClicked({ ...cardsClicked, card2: true });
       setIsClickable(false);
-      alert('2');
+      alert("2");
     } else {
-      console.log('perdu2');
+      console.log("perdu2");
       setIsLost(true);
       setIsClickable(false);
 
@@ -79,14 +79,17 @@ const Card = ({
       setIsWon(true);
     }
   };
+  useEffect(() => {
+    setIsClickable(true);
+  }, [isWon, isLost]);
 
   return (
     <>
-      <div className='card' onClick={() => playCard()}>
-        {!cardsClicked['card' + card.value] ? (
-          <img src={BackPath} alt='Carte' />
+      <div className="card" onClick={() => playCard()}>
+        {!cardsClicked["card" + card.value] ? (
+          <img src={BackPath} alt="Carte" />
         ) : (
-          <img src={FrontPath} alt='Carte' />
+          <img src={FrontPath} alt="Carte" />
         )}
       </div>
       {/* <span>{card.value}</span> */}
