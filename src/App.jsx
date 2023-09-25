@@ -15,6 +15,7 @@ const App = () => {
   const [firstStep, setFirstStep] = useState(true);
   const [secondStep, setSecondStep] = useState(false);
   const [thirdStep, setThirdStep] = useState(false);
+  const [displayButton, setDisplayButton] = useState(false);
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -27,6 +28,7 @@ const App = () => {
     const backValues = [1, 2, 3];
     const valueValues = [1, 2, 3];
     const array = [];
+    setDisplayButton(false);
     setCards([]);
     setIsLost(false);
     setIsWon(false);
@@ -37,6 +39,13 @@ const App = () => {
       card1: false,
       card2: false,
       card3: false,
+      card4: false,
+      card5: false,
+      card6: false,
+      card7: false,
+      card8: false,
+      card9: false,
+      card10: false,
     });
     shuffleArray(backValues);
     shuffleArray(valueValues);
@@ -60,19 +69,21 @@ const App = () => {
       startLevel3();
     }
     if (isWon) {
-      alert("gagné");
-      startLevel3();
+      setDisplayButton(true);
     }
   }, [isLost, isWon]);
 
-  useEffect(() => {
-    if (cardsClicked.card1 && cardsClicked.card2 && cardsClicked.card3) {
-      console.log("You win!");
-    }
-  }, [cardsClicked]);
+  // useEffect(() => {
+  //   if (cardsClicked.card1 && cardsClicked.card2 && cardsClicked.card3) {
+  //     console.log("You win!");
+  //   }
+  // }, [cardsClicked]);
 
   return (
     <>
+      {displayButton && (
+        <button onClick={() => startLevel3()}>Recommencer</button>
+      )}
       {cards &&
         cards.map((card, index) => {
           return (

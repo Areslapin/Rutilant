@@ -76,6 +76,7 @@ const Card = ({
       setIsClickable(false);
       setThirdStep(false);
       setFirstStep(true);
+      alert("Bravo !");
       setIsWon(true);
     }
   };
@@ -92,7 +93,8 @@ const Card = ({
           <img src={FrontPath} alt="Carte" />
         )}
       </div>
-      {/* <span>{card.value}</span> */}
+
+      <span>{card.value}</span>
     </>
   );
 };
