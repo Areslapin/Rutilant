@@ -1,6 +1,6 @@
-import Card from "./components/Card";
-import { useState, useEffect } from "react";
-import "./App.css";
+import Card from './components/Card';
+import { useState, useEffect } from 'react';
+import './App.css';
 
 const App = () => {
   const [cardsClicked, setCardsClicked] = useState({
@@ -29,6 +29,13 @@ const App = () => {
   const [firstStep, setFirstStep] = useState(true);
   const [secondStep, setSecondStep] = useState(false);
   const [thirdStep, setThirdStep] = useState(false);
+  const [fourStep, setFourStep] = useState(false);
+  const [fiveStep, setFiveStep] = useState(false);
+  const [sixStep, setSixStep] = useState(false);
+  const [sevenStep, setSevenStep] = useState(false);
+  const [eightStep, setEightStep] = useState(false);
+  const [nineStep, setNineStep] = useState(false);
+  const [tenStep, setTenStep] = useState(false);
   const [displayButton, setDisplayButton] = useState(false);
 
   function shuffleArray(array) {
@@ -39,6 +46,10 @@ const App = () => {
   }
 
   function startCurrentLevel(level) {
+    for (let i = 0; i < level; i++) {
+      backValues.push(i + 1);
+      valueValues.push(i + 1);
+    }
     const array = [];
     setDisplayButton(false);
     setCards([]);
@@ -69,6 +80,9 @@ const App = () => {
     });
     shuffleArray(backValues);
     shuffleArray(valueValues);
+    console.log('back', backValues);
+    console.log('values', valueValues);
+    console.log('current', currentLevel);
     for (let i = 0; i < currentLevel; i++) {
       const card = {
         back: backValues.pop(),
@@ -80,13 +94,13 @@ const App = () => {
   }
 
   useEffect(() => {
-    startCurrentLevel();
+    maxLevel.level1 && startCurrentLevel(currentLevel);
   }, []);
 
   useEffect(() => {
     if (isLost) {
-      alert("perdu");
-      startCurrentLevel();
+      alert('perdu');
+      startCurrentLevel(currentLevel);
     }
     if (isWon) {
       setDisplayButton(true);
@@ -106,6 +120,7 @@ const App = () => {
       )}
       {cards &&
         cards.map((card, index) => {
+          console.log(card);
           return (
             <Card
               key={index}
@@ -120,8 +135,23 @@ const App = () => {
               setSecondStep={setSecondStep}
               thirdStep={thirdStep}
               setThirdStep={setThirdStep}
+              fourStep={fourStep}
+              setFourStep={setFourStep}
+              fiveStep={fiveStep}
+              setFiveStep={setFiveStep}
+              sixStep={sixStep}
+              setSixStep={setSixStep}
+              sevenStep={sevenStep}
+              setSevenStep={setSevenStep}
+              eightStep={eightStep}
+              setEightStep={setEightStep}
+              nineStep={nineStep}
+              setNineStep={setNineStep}
+              tenStep={tenStep}
+              setTenStep={setTenStep}
               isWon={isWon}
               setIsWon={setIsWon}
+              currentLevel={currentLevel}
             />
           );
         })}
