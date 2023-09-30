@@ -8,7 +8,21 @@ const App = () => {
     card2: false,
     card3: false,
   });
-
+  const [maxLevel, setMaxLevel] = useState({
+    level1: true,
+    level2: false,
+    level3: false,
+    level4: false,
+    level5: false,
+    level6: false,
+    level7: false,
+    level8: false,
+    level9: false,
+    level10: false,
+  });
+  const [currentLevel, setCurrentLevel] = useState(1);
+  const [backValues, setBackValues] = useState([1]);
+  const [valueValues, setValueValues] = useState([1]);
   const [cards, setCards] = useState([]);
   const [isLost, setIsLost] = useState(false);
   const [isWon, setIsWon] = useState(false);
@@ -24,9 +38,7 @@ const App = () => {
     }
   }
 
-  function startLevel3() {
-    const backValues = [1, 2, 3];
-    const valueValues = [1, 2, 3];
+  function startCurrentLevel(level) {
     const array = [];
     setDisplayButton(false);
     setCards([]);
@@ -35,6 +47,14 @@ const App = () => {
     setFirstStep(true);
     setSecondStep(false);
     setThirdStep(false);
+    setFourStep(false);
+    setFiveStep(false);
+    setSixStep(false);
+    setSevenStep(false);
+    setEightStep(false);
+    setNineStep(false);
+    setTenStep(false);
+
     setCardsClicked({
       card1: false,
       card2: false,
@@ -49,7 +69,7 @@ const App = () => {
     });
     shuffleArray(backValues);
     shuffleArray(valueValues);
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < currentLevel; i++) {
       const card = {
         back: backValues.pop(),
         value: valueValues.pop(),
@@ -60,13 +80,13 @@ const App = () => {
   }
 
   useEffect(() => {
-    startLevel3();
+    startCurrentLevel();
   }, []);
 
   useEffect(() => {
     if (isLost) {
       alert("perdu");
-      startLevel3();
+      startCurrentLevel();
     }
     if (isWon) {
       setDisplayButton(true);
@@ -82,7 +102,7 @@ const App = () => {
   return (
     <>
       {displayButton && (
-        <button onClick={() => startLevel3()}>Recommencer</button>
+        <button onClick={() => startCurrentLevel()}>Recommencer</button>
       )}
       {cards &&
         cards.map((card, index) => {
