@@ -1,6 +1,6 @@
-import Card from './components/Card';
-import { useState, useEffect } from 'react';
-import './App.css';
+import Card from "./components/Card";
+import { useState, useEffect } from "react";
+import "./App.css";
 
 const App = () => {
   const [cardsClicked, setCardsClicked] = useState({
@@ -80,9 +80,9 @@ const App = () => {
     });
     shuffleArray(backValues);
     shuffleArray(valueValues);
-    console.log('back', backValues);
-    console.log('values', valueValues);
-    console.log('current', currentLevel);
+    console.log("back", backValues);
+    console.log("values", valueValues);
+    console.log("current", currentLevel);
     for (let i = 0; i < currentLevel; i++) {
       const card = {
         back: backValues.pop(),
@@ -98,11 +98,13 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    console.log("CoucouEffect", isWon);
     if (isLost) {
-      alert('perdu');
+      alert("perdu");
       startCurrentLevel(currentLevel);
     }
     if (isWon) {
+      console.log("Coucou", setIsWon);
       setDisplayButton(true);
     }
   }, [isLost, isWon]);
@@ -152,6 +154,7 @@ const App = () => {
               isWon={isWon}
               setIsWon={setIsWon}
               currentLevel={currentLevel}
+              setCurrentLevel={setCurrentLevel}
             />
           );
         })}

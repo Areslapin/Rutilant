@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const Card = ({
   card,
@@ -14,7 +14,7 @@ const Card = ({
   setThirdStep,
   isWon,
   setIsWon,
-  currentLevel,
+  setCurrentLevel,
 }) => {
   const [isClickable, setIsClickable] = useState(true);
 
@@ -40,9 +40,10 @@ const Card = ({
       setSecondStep(true);
       setCardsClicked({ ...cardsClicked, card1: true });
       setIsClickable(false);
-      alert('1');
+      setIsWon(true);
+      setCurrentLevel(2);
+      alert("1");
     } else {
-      console.log('perdu');
       setIsLost(true);
       setIsClickable(false);
       setCardsClicked({
@@ -58,9 +59,9 @@ const Card = ({
       setThirdStep(true);
       setCardsClicked({ ...cardsClicked, card2: true });
       setIsClickable(false);
-      alert('2');
+      alert("2");
     } else {
-      console.log('perdu2');
+      console.log("perdu2");
       setIsLost(true);
       setIsClickable(false);
 
@@ -68,6 +69,13 @@ const Card = ({
         card1: false,
         card2: false,
         card3: false,
+        card4: false,
+        card5: false,
+        card6: false,
+        card7: false,
+        card8: false,
+        card9: false,
+        card10: false,
       });
     }
   };
@@ -77,7 +85,18 @@ const Card = ({
       setIsClickable(false);
       setThirdStep(false);
       setFirstStep(true);
-      alert('Bravo !');
+      alert("Bravo !");
+      setIsWon(true);
+    }
+  };
+
+  const FourStepPlay = () => {
+    if (card.value === 3 && cardsClicked.card2 && cardsClicked.card1) {
+      setCardsClicked({ ...cardsClicked, card3: true });
+      setIsClickable(false);
+      setThirdStep(false);
+      setFirstStep(true);
+      alert("Bravo !");
       setIsWon(true);
     }
   };
@@ -87,11 +106,11 @@ const Card = ({
 
   return (
     <>
-      <div className='card' onClick={() => playCard()}>
-        {!cardsClicked['card' + card.value] ? (
-          <img src={BackPath} alt='Carte' />
+      <div className="card" onClick={() => playCard()}>
+        {!cardsClicked["card" + card.value] ? (
+          <img src={BackPath} alt="Carte" />
         ) : (
-          <img src={FrontPath} alt='Carte' />
+          <img src={FrontPath} alt="Carte" />
         )}
       </div>
 
