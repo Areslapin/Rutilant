@@ -1,12 +1,19 @@
-import Card from "./components/Card";
-import { useState, useEffect } from "react";
-import "./App.css";
+import Card from './components/Card';
+import { useState, useEffect } from 'react';
+import './App.css';
 
 const App = () => {
   const [cardsClicked, setCardsClicked] = useState({
     card1: false,
     card2: false,
     card3: false,
+    card4: false,
+    card5: false,
+    card6: false,
+    card7: false,
+    card8: false,
+    card9: false,
+    card10: false,
   });
   const [maxLevel, setMaxLevel] = useState({
     level1: true,
@@ -21,21 +28,11 @@ const App = () => {
     level10: false,
   });
   const [currentLevel, setCurrentLevel] = useState(1);
-  const [backValues, setBackValues] = useState([1]);
-  const [valueValues, setValueValues] = useState([1]);
+  const [backValues, setBackValues] = useState([]);
+  const [valueValues, setValueValues] = useState([]);
   const [cards, setCards] = useState([]);
   const [isLost, setIsLost] = useState(false);
   const [isWon, setIsWon] = useState(false);
-  const [firstStep, setFirstStep] = useState(true);
-  const [secondStep, setSecondStep] = useState(false);
-  const [thirdStep, setThirdStep] = useState(false);
-  const [fourStep, setFourStep] = useState(false);
-  const [fiveStep, setFiveStep] = useState(false);
-  const [sixStep, setSixStep] = useState(false);
-  const [sevenStep, setSevenStep] = useState(false);
-  const [eightStep, setEightStep] = useState(false);
-  const [nineStep, setNineStep] = useState(false);
-  const [tenStep, setTenStep] = useState(false);
   const [displayButton, setDisplayButton] = useState(false);
 
   function shuffleArray(array) {
@@ -55,16 +52,11 @@ const App = () => {
     setCards([]);
     setIsLost(false);
     setIsWon(false);
-    setFirstStep(true);
-    setSecondStep(false);
-    setThirdStep(false);
-    setFourStep(false);
-    setFiveStep(false);
-    setSixStep(false);
-    setSevenStep(false);
-    setEightStep(false);
-    setNineStep(false);
-    setTenStep(false);
+
+    setMaxLevel({
+      ...maxLevel,
+      [`level${level}`]: true,
+    });
 
     setCardsClicked({
       card1: false,
@@ -80,9 +72,7 @@ const App = () => {
     });
     shuffleArray(backValues);
     shuffleArray(valueValues);
-    console.log("back", backValues);
-    console.log("values", valueValues);
-    console.log("current", currentLevel);
+
     for (let i = 0; i < currentLevel; i++) {
       const card = {
         back: backValues.pop(),
@@ -98,31 +88,25 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    console.log("CoucouEffect", isWon);
     if (isLost) {
-      alert("perdu");
+      alert('perdu');
       startCurrentLevel(currentLevel);
     }
     if (isWon) {
-      console.log("Coucou", setIsWon);
       setDisplayButton(true);
+      alert('gagné');
     }
   }, [isLost, isWon]);
-
-  // useEffect(() => {
-  //   if (cardsClicked.card1 && cardsClicked.card2 && cardsClicked.card3) {
-  //     console.log("You win!");
-  //   }
-  // }, [cardsClicked]);
 
   return (
     <>
       {displayButton && (
-        <button onClick={() => startCurrentLevel()}>Recommencer</button>
+        <button onClick={() => startCurrentLevel(currentLevel)}>
+          Recommencer
+        </button>
       )}
       {cards &&
         cards.map((card, index) => {
-          console.log(card);
           return (
             <Card
               key={index}
@@ -131,26 +115,8 @@ const App = () => {
               setCardsClicked={setCardsClicked}
               isLost={isLost}
               setIsLost={setIsLost}
-              firstStep={firstStep}
-              setFirstStep={setFirstStep}
-              secondStep={secondStep}
-              setSecondStep={setSecondStep}
-              thirdStep={thirdStep}
-              setThirdStep={setThirdStep}
-              fourStep={fourStep}
-              setFourStep={setFourStep}
-              fiveStep={fiveStep}
-              setFiveStep={setFiveStep}
-              sixStep={sixStep}
-              setSixStep={setSixStep}
-              sevenStep={sevenStep}
-              setSevenStep={setSevenStep}
-              eightStep={eightStep}
-              setEightStep={setEightStep}
-              nineStep={nineStep}
-              setNineStep={setNineStep}
-              tenStep={tenStep}
-              setTenStep={setTenStep}
+              maxLevel={maxLevel}
+              setMaxLevel={setMaxLevel}
               isWon={isWon}
               setIsWon={setIsWon}
               currentLevel={currentLevel}
