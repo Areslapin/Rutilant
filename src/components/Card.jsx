@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const Card = ({
   card,
@@ -20,18 +20,20 @@ const Card = ({
   const FrontPath = `src/assets/Carrds/front/0${card.value}_Front.png`;
 
   const playCard = () => {
-    if (maxLevel.level1 && isClickable) {
+    if (isClickable) {
       firstStepPlay();
     }
-
-    if (maxLevel.level2 && isClickable) {
+    if (isClickable) {
       secondStepPlay();
     }
-    if (maxLevel.level3 && isClickable) {
+    if (isClickable) {
       thirdStepPlay();
     }
-    if (maxLevel.level4 && isClickable) {
+    if (isClickable) {
       fourStepPlay();
+    }
+    if (isClickable) {
+      fiveStepPlay();
     }
   };
 
@@ -98,7 +100,7 @@ const Card = ({
         }
       }
       if (cardsClicked.card1 && !cardsClicked.card2) {
-        if (card.value === 2 && maxLevel.level3) {
+        if (card.value === 2) {
           setCardsClicked({ ...cardsClicked, card2: true });
           setIsClickable(false);
         } else {
@@ -108,7 +110,7 @@ const Card = ({
         }
       }
       if (cardsClicked.card1 && cardsClicked.card2 && !cardsClicked.card3) {
-        if (card.value === 3 && maxLevel.level3) {
+        if (card.value === 3) {
           setCardsClicked({ ...cardsClicked, card3: true });
           setIsClickable(false);
           setIsWon(true);
@@ -143,7 +145,7 @@ const Card = ({
         }
       }
       if (cardsClicked.card1 && !cardsClicked.card2) {
-        if (card.value === 2 && maxLevel.level3) {
+        if (card.value === 2) {
           setCardsClicked({ ...cardsClicked, card2: true });
           setIsClickable(false);
         } else {
@@ -153,7 +155,7 @@ const Card = ({
         }
       }
       if (cardsClicked.card1 && cardsClicked.card2 && !cardsClicked.card3) {
-        if (card.value === 3 && maxLevel.level3) {
+        if (card.value === 3) {
           setCardsClicked({ ...cardsClicked, card3: true });
           setIsClickable(false);
         } else {
@@ -173,7 +175,7 @@ const Card = ({
         cardsClicked.card3 &&
         !cardsClicked.card4
       ) {
-        if (card.value === 4 && maxLevel.level3) {
+        if (card.value === 4) {
           setCardsClicked({ ...cardsClicked, card4: true });
           setIsClickable(false);
           setIsWon(true);
@@ -193,17 +195,106 @@ const Card = ({
     }
   };
 
+  const fiveStepPlay = () => {
+    if (currentLevel === 5) {
+      if (!cardsClicked.card1) {
+        if (card.value === 1) {
+          setCardsClicked({ ...cardsClicked, card1: true });
+          setIsClickable(false);
+        } else {
+          setIsLost(true);
+          setIsClickable(false);
+          setCardsClicked({
+            ...cardsClicked,
+            card1: false,
+          });
+        }
+      }
+      if (cardsClicked.card1 && !cardsClicked.card2) {
+        if (card.value === 2) {
+          setCardsClicked({ ...cardsClicked, card2: true });
+          setIsClickable(false);
+        } else {
+          setIsLost(true);
+          setIsClickable(false);
+          setCardsClicked({ ...cardsClicked, card1: true, card2: false });
+        }
+      }
+      if (cardsClicked.card1 && cardsClicked.card2 && !cardsClicked.card3) {
+        if (card.value === 3) {
+          setCardsClicked({ ...cardsClicked, card3: true });
+          setIsClickable(false);
+        } else {
+          setIsLost(true);
+          setIsClickable(false);
+          setCardsClicked({
+            ...cardsClicked,
+            card1: true,
+            card2: true,
+            card3: false,
+          });
+        }
+      }
+      if (
+        cardsClicked.card1 &&
+        cardsClicked.card2 &&
+        cardsClicked.card3 &&
+        !cardsClicked.card4
+      ) {
+        if (card.value === 4) {
+          setCardsClicked({ ...cardsClicked, card4: true });
+          setIsClickable(false);
+        } else {
+          setIsLost(true);
+          setIsClickable(false);
+          setCardsClicked({
+            ...cardsClicked,
+            card1: true,
+            card2: true,
+            card3: true,
+            card4: false,
+          });
+        }
+      }
+      if (
+        cardsClicked.card1 &&
+        cardsClicked.card2 &&
+        cardsClicked.card3 &&
+        cardsClicked.card4 &&
+        !cardsClicked.card5
+      ) {
+        if (card.value === 5) {
+          setCardsClicked({ ...cardsClicked, card5: true });
+          setIsClickable(false);
+          setIsWon(true);
+          setCurrentLevel(6);
+        } else {
+          setIsLost(true);
+          setIsClickable(false);
+          setCardsClicked({
+            ...cardsClicked,
+            card1: true,
+            card2: true,
+            card3: true,
+            card4: true,
+            card5: false,
+          });
+        }
+      }
+    }
+  };
+
   useEffect(() => {
     setIsClickable(true);
   }, [isWon, isLost]);
 
   return (
     <>
-      <div className='card' onClick={() => playCard()}>
-        {!cardsClicked['card' + card.value] ? (
-          <img src={BackPath} alt='Carte' />
+      <div className="card" onClick={() => playCard()}>
+        {!cardsClicked["card" + card.value] ? (
+          <img src={BackPath} alt="Carte" />
         ) : (
-          <img src={FrontPath} alt='Carte' />
+          <img src={FrontPath} alt="Carte" />
         )}
       </div>
 

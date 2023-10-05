@@ -1,6 +1,6 @@
-import Card from './components/Card';
-import { useState, useEffect } from 'react';
-import './App.css';
+import Card from "./components/Card";
+import { useState, useEffect } from "react";
+import "./App.css";
 
 const App = () => {
   const [cardsClicked, setCardsClicked] = useState({
@@ -34,6 +34,7 @@ const App = () => {
   const [isLost, setIsLost] = useState(false);
   const [isWon, setIsWon] = useState(false);
   const [displayButton, setDisplayButton] = useState(false);
+  const [displayMessage, setDisplayMessage] = useState(false);
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -89,12 +90,12 @@ const App = () => {
 
   useEffect(() => {
     if (isLost) {
-      alert('perdu');
-      startCurrentLevel(currentLevel);
+      setTimeout(() => startCurrentLevel(currentLevel), 5000);
+      setTimeout(() => setDisplayMessage(true), 5000);
     }
     if (isWon) {
       setDisplayButton(true);
-      alert('gagné');
+      setDisplayMessage(true);
     }
   }, [isLost, isWon]);
 
@@ -105,6 +106,10 @@ const App = () => {
           Recommencer
         </button>
       )}
+      {isWon && displayMessage && <h1>BIEN OUEJ PD</h1>}
+
+      {isLost && displayMessage && <h1>RACISTE</h1>}
+
       {cards &&
         cards.map((card, index) => {
           return (
