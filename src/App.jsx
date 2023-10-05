@@ -1,6 +1,6 @@
-import Card from "./components/Card";
-import { useState, useEffect } from "react";
-import "./App.css";
+import Card from './components/Card';
+import { useState, useEffect } from 'react';
+import './App.css';
 
 const App = () => {
   const [cardsClicked, setCardsClicked] = useState({
@@ -90,8 +90,10 @@ const App = () => {
 
   useEffect(() => {
     if (isLost) {
-      setTimeout(() => startCurrentLevel(currentLevel), 5000);
-      setTimeout(() => setDisplayMessage(true), 5000);
+      setTimeout(() => {
+        setDisplayMessage(true);
+        setDisplayButton(true);
+      }, 1000);
     }
     if (isWon) {
       setDisplayButton(true);
