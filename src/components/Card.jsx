@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const Card = ({
   card,
@@ -6,7 +6,6 @@ const Card = ({
   setCardsClicked,
   isLost,
   setIsLost,
-
   isWon,
   setIsWon,
   setCurrentLevel,
@@ -15,12 +14,11 @@ const Card = ({
   setMaxLevel,
 }) => {
   const [isClickable, setIsClickable] = useState(true);
-
   const BackPath = `src/assets/Carrds/back/0${card.back}_Back.png`;
   const FrontPath = `src/assets/Carrds/front/0${card.value}_Front.png`;
 
   const playCard = () => {
-    handleClick('card' + card.value);
+    handleClick("card" + card.value);
     if (isClickable) {
       firstStepPlay();
     }
@@ -52,7 +50,7 @@ const Card = ({
       tenStepPlay();
     }
   };
-
+  // Commentaire de sécurité niveau 94 //
   const firstStepPlay = () => {
     if (currentLevel === 1) {
       if (card.value === 1) {
@@ -95,6 +93,7 @@ const Card = ({
           setCardsClicked({ ...cardsClicked, card1: true });
           setIsClickable(false);
         } else {
+          setIsClickable(false);
           setIsLost(true);
         }
       }
@@ -103,6 +102,7 @@ const Card = ({
           setCardsClicked({ ...cardsClicked, card2: true });
           setIsClickable(false);
         } else {
+          setIsClickable(false);
           setIsLost(true);
         }
       }
@@ -113,6 +113,7 @@ const Card = ({
           setIsWon(true);
           setCurrentLevel(4);
         } else {
+          setIsClickable(false);
           setIsLost(true);
         }
       }
@@ -744,7 +745,7 @@ const Card = ({
   };
 
   const handleClick = (card) => {
-    console.log('card', card);
+    console.log("card", card);
     setCardsClicked({ ...cardsClicked, [card]: true });
     setIsClickable(false);
   };
@@ -755,11 +756,11 @@ const Card = ({
 
   return (
     <>
-      <div className='card' onClick={() => playCard()}>
-        {!cardsClicked['card' + card.value] ? (
-          <img src={BackPath} alt='Carte' />
+      <div className="card" onClick={() => playCard()}>
+        {!cardsClicked["card" + card.value] ? (
+          <img src={BackPath} alt="Carte" />
         ) : (
-          <img src={FrontPath} alt='Carte' />
+          <img src={FrontPath} alt="Carte" />
         )}
       </div>
 

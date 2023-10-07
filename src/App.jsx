@@ -1,6 +1,6 @@
-import Card from './components/Card';
-import { useState, useEffect } from 'react';
-import './App.css';
+import Card from "./components/Card";
+import { useState, useEffect } from "react";
+import "./App.css";
 
 const App = () => {
   const [cardsClicked, setCardsClicked] = useState({
@@ -93,7 +93,7 @@ const App = () => {
       setTimeout(() => {
         setDisplayMessage(true);
         setDisplayButton(true);
-      }, 1000);
+      }, 350);
     }
     if (isWon) {
       setDisplayButton(true);
