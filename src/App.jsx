@@ -3,6 +3,18 @@ import { useState, useEffect } from 'react';
 import './App.css';
 
 const App = () => {
+  const [isClickable, setIsClickable] = useState({
+    card1: true,
+    card2: true,
+    card3: true,
+    card4: true,
+    card5: true,
+    card6: true,
+    card7: true,
+    card8: true,
+    card9: true,
+    card10: true,
+  });
   const [cardsClicked, setCardsClicked] = useState({
     card1: false,
     card2: false,
@@ -90,12 +102,19 @@ const App = () => {
 
   useEffect(() => {
     if (isLost) {
+      for (let i = 1; i < currentLevel; i++) {
+        setIsClickable({ ...isClickable, ['card' + i]: true });
+        console.log(isClickable);
+      }
       setTimeout(() => {
         setDisplayMessage(true);
         setDisplayButton(true);
       }, 1000);
     }
     if (isWon) {
+      for (let i = 1; i < currentLevel; i++) {
+        setIsClickable({ ...isClickable, ['card' + i]: true });
+      }
       setDisplayButton(true);
       setDisplayMessage(true);
     }
@@ -128,6 +147,8 @@ const App = () => {
               setIsWon={setIsWon}
               currentLevel={currentLevel}
               setCurrentLevel={setCurrentLevel}
+              isClickable={isClickable}
+              setIsClickable={setIsClickable}
             />
           );
         })}

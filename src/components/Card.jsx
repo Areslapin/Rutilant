@@ -13,76 +13,93 @@ const Card = ({
   currentLevel,
   maxLevel,
   setMaxLevel,
+  isClickable,
+  setIsClickable,
 }) => {
-  const [isClickable, setIsClickable] = useState(true);
-
   const BackPath = `src/assets/Carrds/back/0${card.back}_Back.png`;
   const FrontPath = `src/assets/Carrds/front/0${card.value}_Front.png`;
+  console.log('isclickable', isClickable);
 
   const playCard = () => {
     handleClick('card' + card.value);
-    if (isClickable) {
+
+    if (currentLevel === 1) {
       firstStepPlay();
     }
-    if (isClickable) {
+    if (currentLevel === 2) {
       secondStepPlay();
     }
-    if (isClickable) {
+    if (currentLevel === 3) {
       thirdStepPlay();
     }
-    if (isClickable) {
+    if (currentLevel === 4) {
       fourStepPlay();
     }
-    if (isClickable) {
+    if (currentLevel === 5) {
       fiveStepPlay();
     }
-    if (isClickable) {
+    if (currentLevel === 6) {
       sixStepPlay();
     }
-    if (isClickable) {
+    if (currentLevel === 7) {
       sevenStepPlay();
     }
-    if (isClickable) {
+    if (currentLevel === 8) {
       eightStepPlay();
     }
-    if (isClickable) {
+    if (currentLevel === 9) {
       nineStepPlay();
     }
-    if (isClickable) {
+    if (currentLevel === 10) {
       tenStepPlay();
     }
   };
 
   const firstStepPlay = () => {
-    if (currentLevel === 1) {
-      if (card.value === 1) {
-        setCardsClicked({ ...cardsClicked, card1: true });
-        setIsClickable(false);
-        setIsWon(true);
-        setCurrentLevel(2);
-      } else {
-        setIsLost(true);
-      }
+    if (card.value === 1) {
+      setCardsClicked({ ...cardsClicked, card1: true });
+      setIsClickable({ ...isClickable, card1: false });
+      setIsWon(true);
+      setCurrentLevel(2);
+    } else {
+      setIsLost(true);
+      setIsClickable({ ...isClickable, card1: false });
     }
   };
   const secondStepPlay = () => {
     if (currentLevel === 2) {
-      if (!cardsClicked.card1) {
+      if (!cardsClicked.card1 && isClickable.card1) {
         if (card.value === 1) {
           setCardsClicked({ ...cardsClicked, card1: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+            card2: false,
+          });
         }
       }
-      if (cardsClicked.card1 && !cardsClicked.card2) {
+      if (cardsClicked.card1 && !cardsClicked.card2 && isClickable.card2) {
         if (card.value === 2) {
           setCardsClicked({ ...cardsClicked, card2: true });
-          setIsClickable(false);
+          // setIsClickable({
+          //   ...isClickable,
+          //   card2: false,
+          // });
           setIsWon(true);
           setCurrentLevel(3);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+            card2: false,
+          });
         }
       }
     }
@@ -90,30 +107,57 @@ const Card = ({
 
   const thirdStepPlay = () => {
     if (currentLevel === 3) {
-      if (!cardsClicked.card1) {
+      if (!cardsClicked.card1 && isClickable.card1) {
         if (card.value === 1) {
           setCardsClicked({ ...cardsClicked, card1: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         }
       }
-      if (cardsClicked.card1 && !cardsClicked.card2) {
+      if (cardsClicked.card1 && !cardsClicked.card2 && isClickable.card2) {
         if (card.value === 2) {
           setCardsClicked({ ...cardsClicked, card2: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card2: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card2: false,
+            card3: false,
+          });
         }
       }
-      if (cardsClicked.card1 && cardsClicked.card2 && !cardsClicked.card3) {
+      if (
+        cardsClicked.card1 &&
+        cardsClicked.card2 &&
+        !cardsClicked.card3 &&
+        isClickable.card3
+      ) {
         if (card.value === 3) {
           setCardsClicked({ ...cardsClicked, card3: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
           setIsWon(true);
           setCurrentLevel(4);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
         }
       }
     }
@@ -124,25 +168,46 @@ const Card = ({
       if (!cardsClicked.card1) {
         if (card.value === 1) {
           setCardsClicked({ ...cardsClicked, card1: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         }
       }
       if (cardsClicked.card1 && !cardsClicked.card2) {
         if (card.value === 2) {
           setCardsClicked({ ...cardsClicked, card2: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card2: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card2: false,
+          });
         }
       }
       if (cardsClicked.card1 && cardsClicked.card2 && !cardsClicked.card3) {
         if (card.value === 3) {
           setCardsClicked({ ...cardsClicked, card3: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
         }
       }
       if (
@@ -153,11 +218,18 @@ const Card = ({
       ) {
         if (card.value === 4) {
           setCardsClicked({ ...cardsClicked, card4: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card4: false,
+          });
           setIsWon(true);
           setCurrentLevel(5);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card4: false,
+          });
         }
       }
     }
@@ -168,25 +240,46 @@ const Card = ({
       if (!cardsClicked.card1) {
         if (card.value === 1) {
           setCardsClicked({ ...cardsClicked, card1: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         }
       }
       if (cardsClicked.card1 && !cardsClicked.card2) {
         if (card.value === 2) {
           setCardsClicked({ ...cardsClicked, card2: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card2: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card2: false,
+          });
         }
       }
       if (cardsClicked.card1 && cardsClicked.card2 && !cardsClicked.card3) {
         if (card.value === 3) {
           setCardsClicked({ ...cardsClicked, card3: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
         }
       }
       if (
@@ -197,9 +290,16 @@ const Card = ({
       ) {
         if (card.value === 4) {
           setCardsClicked({ ...cardsClicked, card4: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card4: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card4: false,
+          });
         }
       }
       if (
@@ -211,11 +311,18 @@ const Card = ({
       ) {
         if (card.value === 5) {
           setCardsClicked({ ...cardsClicked, card5: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card5: false,
+          });
           setIsWon(true);
           setCurrentLevel(6);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card5: false,
+          });
         }
       }
     }
@@ -225,25 +332,46 @@ const Card = ({
       if (!cardsClicked.card1) {
         if (card.value === 1) {
           setCardsClicked({ ...cardsClicked, card1: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         }
       }
       if (cardsClicked.card1 && !cardsClicked.card2) {
         if (card.value === 2) {
           setCardsClicked({ ...cardsClicked, card2: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card2: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card2: false,
+          });
         }
       }
       if (cardsClicked.card1 && cardsClicked.card2 && !cardsClicked.card3) {
         if (card.value === 3) {
           setCardsClicked({ ...cardsClicked, card3: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
         }
       }
       if (
@@ -254,9 +382,16 @@ const Card = ({
       ) {
         if (card.value === 4) {
           setCardsClicked({ ...cardsClicked, card4: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card4: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card4: false,
+          });
         }
       }
       if (
@@ -268,9 +403,16 @@ const Card = ({
       ) {
         if (card.value === 5) {
           setCardsClicked({ ...cardsClicked, card5: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card5: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card5: false,
+          });
         }
       }
       if (
@@ -283,11 +425,18 @@ const Card = ({
       ) {
         if (card.value === 6) {
           setCardsClicked({ ...cardsClicked, card6: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card6: false,
+          });
           setIsWon(true);
           setCurrentLevel(7);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card6: false,
+          });
         }
       }
     }
@@ -298,15 +447,25 @@ const Card = ({
       if (!cardsClicked.card1) {
         if (card.value === 1) {
           setCardsClicked({ ...cardsClicked, card1: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         }
       }
       if (cardsClicked.card1 && !cardsClicked.card2) {
         if (card.value === 2) {
           setCardsClicked({ ...cardsClicked, card2: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card2: false,
+          });
         } else {
           setIsLost(true);
         }
@@ -314,9 +473,16 @@ const Card = ({
       if (cardsClicked.card1 && cardsClicked.card2 && !cardsClicked.card3) {
         if (card.value === 3) {
           setCardsClicked({ ...cardsClicked, card3: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
         }
       }
       if (
@@ -327,9 +493,16 @@ const Card = ({
       ) {
         if (card.value === 4) {
           setCardsClicked({ ...cardsClicked, card4: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card4: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card4: false,
+          });
         }
       }
       if (
@@ -341,9 +514,16 @@ const Card = ({
       ) {
         if (card.value === 5) {
           setCardsClicked({ ...cardsClicked, card5: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card5: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card5: false,
+          });
         }
       }
       if (
@@ -356,9 +536,16 @@ const Card = ({
       ) {
         if (card.value === 6) {
           setCardsClicked({ ...cardsClicked, card6: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card6: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card6: false,
+          });
         }
       }
       if (
@@ -372,11 +559,18 @@ const Card = ({
       ) {
         if (card.value === 7) {
           setCardsClicked({ ...cardsClicked, card7: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card7: false,
+          });
           setIsWon(true);
           setCurrentLevel(8);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card7: false,
+          });
         }
       }
     }
@@ -387,25 +581,46 @@ const Card = ({
       if (!cardsClicked.card1) {
         if (card.value === 1) {
           setCardsClicked({ ...cardsClicked, card1: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         }
       }
       if (cardsClicked.card1 && !cardsClicked.card2) {
         if (card.value === 2) {
           setCardsClicked({ ...cardsClicked, card2: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card2: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card2: false,
+          });
         }
       }
       if (cardsClicked.card1 && cardsClicked.card2 && !cardsClicked.card3) {
         if (card.value === 3) {
           setCardsClicked({ ...cardsClicked, card3: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
         }
       }
       if (
@@ -416,9 +631,16 @@ const Card = ({
       ) {
         if (card.value === 4) {
           setCardsClicked({ ...cardsClicked, card4: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card4: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card4: false,
+          });
         }
       }
       if (
@@ -430,9 +652,16 @@ const Card = ({
       ) {
         if (card.value === 5) {
           setCardsClicked({ ...cardsClicked, card5: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card5: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card5: false,
+          });
         }
       }
       if (
@@ -445,9 +674,16 @@ const Card = ({
       ) {
         if (card.value === 6) {
           setCardsClicked({ ...cardsClicked, card6: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card6: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card6: false,
+          });
         }
       }
       if (
@@ -461,9 +697,16 @@ const Card = ({
       ) {
         if (card.value === 7) {
           setCardsClicked({ ...cardsClicked, card7: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card7: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card7: false,
+          });
         }
       }
       if (
@@ -478,11 +721,18 @@ const Card = ({
       ) {
         if (card.value === 8) {
           setCardsClicked({ ...cardsClicked, card8: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card8: false,
+          });
           setIsWon(true);
           setCurrentLevel(9);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card8: false,
+          });
         }
       }
     }
@@ -493,25 +743,46 @@ const Card = ({
       if (!cardsClicked.card1) {
         if (card.value === 1) {
           setCardsClicked({ ...cardsClicked, card1: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         }
       }
       if (cardsClicked.card1 && !cardsClicked.card2) {
         if (card.value === 2) {
           setCardsClicked({ ...cardsClicked, card2: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card2: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card2: false,
+          });
         }
       }
       if (cardsClicked.card1 && cardsClicked.card2 && !cardsClicked.card3) {
         if (card.value === 3) {
           setCardsClicked({ ...cardsClicked, card3: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
         }
       }
       if (
@@ -522,9 +793,16 @@ const Card = ({
       ) {
         if (card.value === 4) {
           setCardsClicked({ ...cardsClicked, card4: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card4: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card4: false,
+          });
         }
       }
       if (
@@ -536,9 +814,16 @@ const Card = ({
       ) {
         if (card.value === 5) {
           setCardsClicked({ ...cardsClicked, card5: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card5: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card5: false,
+          });
         }
       }
       if (
@@ -551,9 +836,16 @@ const Card = ({
       ) {
         if (card.value === 6) {
           setCardsClicked({ ...cardsClicked, card6: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card6: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card6: false,
+          });
         }
       }
       if (
@@ -567,9 +859,16 @@ const Card = ({
       ) {
         if (card.value === 7) {
           setCardsClicked({ ...cardsClicked, card7: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card7: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card7: false,
+          });
         }
       }
       if (
@@ -584,9 +883,16 @@ const Card = ({
       ) {
         if (card.value === 8) {
           setCardsClicked({ ...cardsClicked, card8: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card8: false,
+          });
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card8: false,
+          });
         }
       }
       if (
@@ -602,11 +908,18 @@ const Card = ({
       ) {
         if (card.value === 9) {
           setCardsClicked({ ...cardsClicked, card9: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card9: false,
+          });
           setIsWon(true);
           setCurrentLevel(10);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card9: false,
+          });
         }
       }
     }
@@ -617,28 +930,49 @@ const Card = ({
       if (!cardsClicked.card1) {
         if (card.value === 1) {
           setCardsClicked({ ...cardsClicked, card1: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
           setIsWon(true);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card1: false,
+          });
         }
       }
       if (cardsClicked.card1 && !cardsClicked.card2) {
         if (card.value === 2) {
           setCardsClicked({ ...cardsClicked, card2: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card2: false,
+          });
           setIsWon(true);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card2: false,
+          });
         }
       }
       if (cardsClicked.card1 && cardsClicked.card2 && !cardsClicked.card3) {
         if (card.value === 3) {
           setCardsClicked({ ...cardsClicked, card3: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
           setIsWon(true);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card3: false,
+          });
         }
       }
       if (
@@ -649,10 +983,17 @@ const Card = ({
       ) {
         if (card.value === 4) {
           setCardsClicked({ ...cardsClicked, card4: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card4: false,
+          });
           setIsWon(true);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card4: false,
+          });
         }
       }
       if (
@@ -664,10 +1005,17 @@ const Card = ({
       ) {
         if (card.value === 5) {
           setCardsClicked({ ...cardsClicked, card5: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card5: false,
+          });
           setIsWon(true);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card5: false,
+          });
         }
       }
       if (
@@ -680,10 +1028,17 @@ const Card = ({
       ) {
         if (card.value === 6) {
           setCardsClicked({ ...cardsClicked, card6: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card6: false,
+          });
           setIsWon(true);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card6: false,
+          });
         }
       }
       if (
@@ -697,10 +1052,17 @@ const Card = ({
       ) {
         if (card.value === 7) {
           setCardsClicked({ ...cardsClicked, card7: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card7: false,
+          });
           setIsWon(true);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card7: false,
+          });
         }
       }
       if (
@@ -715,10 +1077,17 @@ const Card = ({
       ) {
         if (card.value === 8) {
           setCardsClicked({ ...cardsClicked, card8: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card8: false,
+          });
           setIsWon(true);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card8: false,
+          });
         }
       }
       if (
@@ -734,10 +1103,17 @@ const Card = ({
       ) {
         if (card.value === 9) {
           setCardsClicked({ ...cardsClicked, card9: true });
-          setIsClickable(false);
+          setIsClickable({
+            ...isClickable,
+            card9: false,
+          });
           setIsWon(true);
         } else {
           setIsLost(true);
+          setIsClickable({
+            ...isClickable,
+            card9: false,
+          });
         }
       }
     }
@@ -746,12 +1122,7 @@ const Card = ({
   const handleClick = (card) => {
     console.log('card', card);
     setCardsClicked({ ...cardsClicked, [card]: true });
-    setIsClickable(false);
   };
-
-  useEffect(() => {
-    setIsClickable(true);
-  }, [isWon, isLost]);
 
   return (
     <>
@@ -763,7 +1134,7 @@ const Card = ({
         )}
       </div>
 
-      {/* <span>{card.value}</span> */}
+      <span>{card.value}</span>
     </>
   );
 };
