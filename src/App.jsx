@@ -56,6 +56,13 @@ const App = () => {
   }
 
   function startCurrentLevel(level) {
+    for (let i = 1; i < 10; i++) {
+      setIsClickable({ ...isClickable, ['card' + i]: true });
+    }
+    for (let i = 1; i < 10; i++) {
+      setCardsClicked({ ...cardsClicked, ['card' + i]: false });
+    }
+
     for (let i = 0; i < level; i++) {
       backValues.push(i + 1);
       valueValues.push(i + 1);
@@ -103,8 +110,7 @@ const App = () => {
   useEffect(() => {
     if (isLost) {
       for (let i = 1; i < currentLevel; i++) {
-        setIsClickable({ ...isClickable, ['card' + i]: true });
-        console.log(isClickable);
+        setIsClickable({ ...isClickable, ['card' + i]: false });
       }
       setTimeout(() => {
         setDisplayMessage(true);
@@ -112,9 +118,6 @@ const App = () => {
       }, 1000);
     }
     if (isWon) {
-      for (let i = 1; i < currentLevel; i++) {
-        setIsClickable({ ...isClickable, ['card' + i]: true });
-      }
       setDisplayButton(true);
       setDisplayMessage(true);
     }

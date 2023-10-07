@@ -57,49 +57,23 @@ const Card = ({
 
   const firstStepPlay = () => {
     if (card.value === 1) {
-      setCardsClicked({ ...cardsClicked, card1: true });
-      setIsClickable({ ...isClickable, card1: false });
       setIsWon(true);
       setCurrentLevel(2);
-    } else {
-      setIsLost(true);
-      setIsClickable({ ...isClickable, card1: false });
     }
   };
   const secondStepPlay = () => {
-    if (currentLevel === 2) {
-      if (!cardsClicked.card1 && isClickable.card1) {
-        if (card.value === 1) {
-          setCardsClicked({ ...cardsClicked, card1: true });
-          setIsClickable({
-            ...isClickable,
-            card1: false,
-          });
-        } else {
-          setIsLost(true);
-          setIsClickable({
-            ...isClickable,
-            card1: false,
-            card2: false,
-          });
-        }
+    if (!cardsClicked.card1) {
+      if (card.value !== 1) {
+        setIsLost(true);
       }
-      if (cardsClicked.card1 && !cardsClicked.card2 && isClickable.card2) {
+      console.log('cardsClicked1', cardsClicked.card1);
+      console.log('cardsClicked2', cardsClicked.card2);
+      if (cardsClicked.card1 && !cardsClicked.card2) {
         if (card.value === 2) {
-          setCardsClicked({ ...cardsClicked, card2: true });
-          // setIsClickable({
-          //   ...isClickable,
-          //   card2: false,
-          // });
           setIsWon(true);
           setCurrentLevel(3);
         } else {
           setIsLost(true);
-          setIsClickable({
-            ...isClickable,
-            card1: false,
-            card2: false,
-          });
         }
       }
     }
@@ -1122,6 +1096,7 @@ const Card = ({
   const handleClick = (card) => {
     console.log('card', card);
     setCardsClicked({ ...cardsClicked, [card]: true });
+    setIsClickable({ ...isClickable, [card]: false });
   };
 
   return (
