@@ -30,7 +30,7 @@ const App = () => {
     card9: false,
     card10: false,
   });
-
+  const [tryNumber, setTryNumber] = useState(0);
   const [currentLevel, setCurrentLevel] = useState(1);
   const [cards, setCards] = useState([]);
   const [isLost, setIsLost] = useState(false);
@@ -91,9 +91,11 @@ const App = () => {
       setTimeout(() => {
         setDisplayMessage(true);
         setDisplayButton(true);
+        setTryNumber(tryNumber + 1);
       }, 350);
     }
     if (isWon) {
+      setTryNumber(0);
       setDisplayButton(true);
       setDisplayMessage(true);
     }
@@ -129,6 +131,8 @@ const App = () => {
       {isWon && displayMessage && <h1>BIEN OUEJ PD</h1>}
 
       {isLost && displayMessage && <h1>RACISTE</h1>}
+
+      <span>Vous avez perdu {tryNumber} fois</span>
 
       {cards &&
         cards.map((card, index) => {

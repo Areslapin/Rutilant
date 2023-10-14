@@ -219,6 +219,7 @@ const Card = ({
       }
     }
   };
+
   const sixStepPlay = () => {
     if (currentLevel === 6) {
       if (!cardsClicked.card1) {
@@ -610,7 +611,7 @@ const Card = ({
       }
     }
   };
-  //make the tenStepPlay function
+
   const tenStepPlay = () => {
     if (currentLevel === 10) {
       if (!cardsClicked.card1) {
