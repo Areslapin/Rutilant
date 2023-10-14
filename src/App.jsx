@@ -1,8 +1,23 @@
-import Card from "./components/Card";
-import { useState, useEffect } from "react";
-import "./App.css";
+import Card from './components/Card';
+import { useState, useEffect } from 'react';
+import './App.css';
+import shuffleArray from './utils/shuffleArray';
 
 const App = () => {
+  //a utiliser pour le suivi des niveaux et des sauvegardes
+  // const [maxLevel, setMaxLevel] = useState({
+  //   level1: true,
+  //   level2: false,
+  //   level3: false,
+  //   level4: false,
+  //   level5: false,
+  //   level6: false,
+  //   level7: false,
+  //   level8: false,
+  //   level9: false,
+  //   level10: false,
+  // });
+
   const [cardsClicked, setCardsClicked] = useState({
     card1: false,
     card2: false,
@@ -15,35 +30,17 @@ const App = () => {
     card9: false,
     card10: false,
   });
-  const [maxLevel, setMaxLevel] = useState({
-    level1: true,
-    level2: false,
-    level3: false,
-    level4: false,
-    level5: false,
-    level6: false,
-    level7: false,
-    level8: false,
-    level9: false,
-    level10: false,
-  });
+
   const [currentLevel, setCurrentLevel] = useState(1);
-  const [backValues, setBackValues] = useState([]);
-  const [valueValues, setValueValues] = useState([]);
   const [cards, setCards] = useState([]);
   const [isLost, setIsLost] = useState(false);
   const [isWon, setIsWon] = useState(false);
   const [displayButton, setDisplayButton] = useState(false);
   const [displayMessage, setDisplayMessage] = useState(false);
 
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
-
   function startCurrentLevel(level) {
+    const backValues = [];
+    const valueValues = [];
     for (let i = 0; i < level; i++) {
       backValues.push(i + 1);
       valueValues.push(i + 1);
@@ -54,10 +51,10 @@ const App = () => {
     setIsLost(false);
     setIsWon(false);
 
-    setMaxLevel({
-      ...maxLevel,
-      [`level${level}`]: true,
-    });
+    // setMaxLevel({
+    //   ...maxLevel,
+    //   [`level${level}`]: true,
+    // });
 
     setCardsClicked({
       card1: false,
@@ -71,6 +68,7 @@ const App = () => {
       card9: false,
       card10: false,
     });
+
     shuffleArray(backValues);
     shuffleArray(valueValues);
 
@@ -85,7 +83,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    maxLevel.level1 && startCurrentLevel(currentLevel);
+    startCurrentLevel(currentLevel);
   }, []);
 
   useEffect(() => {
@@ -101,6 +99,21 @@ const App = () => {
     }
   }, [isLost, isWon]);
 
+  const flipAllCards = () => {
+    setCardsClicked({
+      card1: true,
+      card2: true,
+      card3: true,
+      card4: true,
+      card5: true,
+      card6: true,
+      card7: true,
+      card8: true,
+      card9: true,
+      card10: true,
+    });
+  };
+
   return (
     <>
       {displayButton && (
@@ -108,6 +121,11 @@ const App = () => {
           Recommencer
         </button>
       )}
+
+      {displayButton && (
+        <button onClick={() => flipAllCards()}>Afficher les cartes</button>
+      )}
+
       {isWon && displayMessage && <h1>BIEN OUEJ PD</h1>}
 
       {isLost && displayMessage && <h1>RACISTE</h1>}
@@ -122,8 +140,6 @@ const App = () => {
               setCardsClicked={setCardsClicked}
               isLost={isLost}
               setIsLost={setIsLost}
-              maxLevel={maxLevel}
-              setMaxLevel={setMaxLevel}
               isWon={isWon}
               setIsWon={setIsWon}
               currentLevel={currentLevel}

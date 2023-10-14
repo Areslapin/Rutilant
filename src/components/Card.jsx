@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 const Card = ({
   card,
@@ -10,15 +10,13 @@ const Card = ({
   setIsWon,
   setCurrentLevel,
   currentLevel,
-  maxLevel,
-  setMaxLevel,
 }) => {
   const [isClickable, setIsClickable] = useState(true);
   const BackPath = `src/assets/Carrds/back/0${card.back}_Back.png`;
   const FrontPath = `src/assets/Carrds/front/0${card.value}_Front.png`;
 
   const playCard = () => {
-    handleClick("card" + card.value);
+    handleClick('card' + card.value);
     if (isClickable) {
       firstStepPlay();
     }
@@ -50,7 +48,7 @@ const Card = ({
       tenStepPlay();
     }
   };
-  // Commentaire de sécurité niveau 94 //
+
   const firstStepPlay = () => {
     if (currentLevel === 1) {
       if (card.value === 1) {
@@ -745,22 +743,23 @@ const Card = ({
   };
 
   const handleClick = (card) => {
-    console.log("card", card);
+    if (cardsClicked[card] === true) return;
     setCardsClicked({ ...cardsClicked, [card]: true });
     setIsClickable(false);
   };
 
   useEffect(() => {
     setIsClickable(true);
+    isLost && setIsClickable(false);
   }, [isWon, isLost]);
 
   return (
     <>
-      <div className="card" onClick={() => playCard()}>
-        {!cardsClicked["card" + card.value] ? (
-          <img src={BackPath} alt="Carte" />
+      <div className='card' onClick={() => isClickable && playCard()}>
+        {!cardsClicked['card' + card.value] ? (
+          <img src={BackPath} alt='Carte' />
         ) : (
-          <img src={FrontPath} alt="Carte" />
+          <img src={FrontPath} alt='Carte' />
         )}
       </div>
 
