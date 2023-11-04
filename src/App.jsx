@@ -2,6 +2,7 @@ import Card from './components/Card';
 import { useState, useEffect } from 'react';
 import './App.css';
 import shuffleArray from './utils/shuffleArray';
+import Home from './components/Home';
 
 const App = () => {
   //a utiliser pour le suivi des niveaux et des sauvegardes
@@ -37,6 +38,7 @@ const App = () => {
   const [isWon, setIsWon] = useState(false);
   const [displayButton, setDisplayButton] = useState(false);
   const [displayMessage, setDisplayMessage] = useState(false);
+  const [displayHome, setDisplayHome] = useState(false);
 
   function startCurrentLevel(level) {
     const backValues = [];
@@ -83,6 +85,12 @@ const App = () => {
   }
 
   useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem('maxLevel'));
+    if (!savedData || savedData === 1) {
+      localStorage.setItem('maxLevel', JSON.stringify(currentLevel));
+
+      setDisplayHome(true);
+    }
     startCurrentLevel(currentLevel);
   }, []);
 
@@ -98,6 +106,7 @@ const App = () => {
       setTryNumber(0);
       setDisplayButton(true);
       setDisplayMessage(true);
+      localStorage.setItem('maxLevel', JSON.stringify(currentLevel));
     }
   }, [isLost, isWon]);
 
@@ -116,7 +125,13 @@ const App = () => {
     });
   };
 
-  return (
+  return displayHome ? (
+    <Home
+      setDisplayHome={setDisplayHome}
+      currentLevel={currentLevel}
+      setCurrentLevel={setCurrentLevel}
+    />
+  ) : (
     <>
       {displayButton && (
         <button onClick={() => startCurrentLevel(currentLevel)}>
