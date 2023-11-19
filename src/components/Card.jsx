@@ -17,34 +17,34 @@ const Card = ({
 
   const playCard = () => {
     handleClick('card' + card.value);
-    if (isClickable) {
+    if (isClickable && currentLevel === 1) {
       firstStepPlay();
     }
-    if (isClickable) {
+    if (isClickable && currentLevel === 2) {
       secondStepPlay();
     }
-    if (isClickable) {
+    if (isClickable && currentLevel === 3) {
       thirdStepPlay();
     }
-    if (isClickable) {
+    if (isClickable && currentLevel === 4) {
       fourStepPlay();
     }
-    if (isClickable) {
+    if (isClickable && currentLevel === 5) {
       fiveStepPlay();
     }
-    if (isClickable) {
+    if (isClickable && currentLevel === 6) {
       sixStepPlay();
     }
-    if (isClickable) {
+    if (isClickable && currentLevel === 7) {
       sevenStepPlay();
     }
-    if (isClickable) {
+    if (isClickable && currentLevel === 8) {
       eightStepPlay();
     }
-    if (isClickable) {
+    if (isClickable && currentLevel === 9) {
       nineStepPlay();
     }
-    if (isClickable) {
+    if (isClickable && currentLevel === 10) {
       tenStepPlay();
     }
   };
@@ -764,7 +764,7 @@ const Card = ({
         )}
       </div>
 
-      {/* <span>{card.value}</span> */}
+      <span>{card.value}</span>
     </>
   );
 };

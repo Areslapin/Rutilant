@@ -21,3 +21,9 @@
 .read-the-docs {
   color: #888;
 }
+
+.settings {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}

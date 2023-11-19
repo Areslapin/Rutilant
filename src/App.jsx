@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import shuffleArray from './utils/shuffleArray';
 import Home from './components/Home';
+import { GoGear } from 'react-icons/go';
+import LevelSelect from './components/LevelSelect';
 
 const App = () => {
   //a utiliser pour le suivi des niveaux et des sauvegardes
@@ -39,6 +41,7 @@ const App = () => {
   const [displayButton, setDisplayButton] = useState(false);
   const [displayMessage, setDisplayMessage] = useState(false);
   const [displayHome, setDisplayHome] = useState(false);
+  const [displayLevelSelect, setDisplayLevelSelect] = useState(false);
 
   function startCurrentLevel(level) {
     const backValues = [];
@@ -52,11 +55,6 @@ const App = () => {
     setCards([]);
     setIsLost(false);
     setIsWon(false);
-
-    // setMaxLevel({
-    //   ...maxLevel,
-    //   [`level${level}`]: true,
-    // });
 
     setCardsClicked({
       card1: false,
@@ -81,6 +79,7 @@ const App = () => {
       };
       array.push(card);
     }
+
     setCards(array);
   }
 
@@ -130,26 +129,43 @@ const App = () => {
       setDisplayHome={setDisplayHome}
       currentLevel={currentLevel}
       setCurrentLevel={setCurrentLevel}
+      setDisplayLevelSelect={setDisplayLevelSelect}
+      displayLevelSelect={displayLevelSelect}
     />
   ) : (
     <>
+      {displayLevelSelect && (
+        <LevelSelect
+          currentLevel={currentLevel}
+          setCurrentLevel={setCurrentLevel}
+          startCurrentLevel={startCurrentLevel}
+          setDisplayLevelSelect={setDisplayLevelSelect}
+        />
+      )}
+
+      <GoGear
+        className='settings'
+        onClick={() => setDisplayHome(true)}
+        size={30}
+      />
       {displayButton && (
         <button onClick={() => startCurrentLevel(currentLevel)}>
-          Recommencer
+          {isLost ? 'Recommencer' : 'Continuer'}
         </button>
       )}
 
-      {displayButton && (
+      {displayButton && isLost && (
         <button onClick={() => flipAllCards()}>Afficher les cartes</button>
       )}
 
-      {isWon && displayMessage && <h1>BIEN OUEJ PD</h1>}
+      {isWon && displayMessage && <h1>Gagné</h1>}
 
-      {isLost && displayMessage && <h1>RACISTE</h1>}
+      {isLost && displayMessage && <h1>Perdu</h1>}
 
-      <span>Vous avez perdu {tryNumber} fois</span>
+      {tryNumber >= 1 && <span>Vous avez perdu {tryNumber} fois</span>}
 
       {cards &&
+        !displayLevelSelect &&
         cards.map((card, index) => {
           return (
             <Card

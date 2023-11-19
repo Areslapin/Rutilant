@@ -1,10 +1,23 @@
-const Home = ({ setDisplayHome, currentLevel, setCurrentLevel }) => {
+const Home = ({
+  setDisplayHome,
+  currentLevel,
+  setCurrentLevel,
+  setDisplayLevelSelect,
+  displayLevelSelect,
+}) => {
   const maxLevel = JSON.parse(localStorage.getItem('maxLevel'));
-  console.log(maxLevel, 'home');
 
   const continueGame = () => {
     setDisplayHome(false);
+
     setCurrentLevel(maxLevel);
+
+    displayLevelSelect && setDisplayLevelSelect(false);
+  };
+
+  const levelSelect = () => {
+    setDisplayHome(false);
+    setDisplayLevelSelect(true);
   };
   return (
     <div>
@@ -25,7 +38,14 @@ const Home = ({ setDisplayHome, currentLevel, setCurrentLevel }) => {
         </button>
       )}
       <button>Quit</button>
-      {maxLevel > 1 && <button>Sélection du niveau</button>}
+      {maxLevel > 1 && (
+        <button
+          onClick={() => {
+            levelSelect();
+          }}>
+          Sélection du niveau
+        </button>
+      )}
     </div>
   );
 };
