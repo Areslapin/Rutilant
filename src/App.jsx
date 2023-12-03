@@ -33,7 +33,10 @@ const App = () => {
     card9: false,
     card10: false,
   });
-  const [tryNumber, setTryNumber] = useState(0);
+
+  const [score, setScore] = useState(1);
+  const [bestScore, setBestScore] = useState({});
+
   const [currentLevel, setCurrentLevel] = useState(1);
   const [cards, setCards] = useState([]);
   const [isLost, setIsLost] = useState(false);
@@ -44,14 +47,10 @@ const App = () => {
   const [displayLevelSelect, setDisplayLevelSelect] = useState(false);
 
   function startCurrentLevel(level) {
-    console.log('startCurrentLevel', level);
     const backValues = [];
     const valueValues = [];
 
-    console.log(backValues, valueValues, 'backValues, valueValues');
-
     for (let i = 0; i < level; i++) {
-      console.log('i', i);
       backValues.push(i + 1);
       valueValues.push(i + 1);
     }
@@ -85,19 +84,16 @@ const App = () => {
       array.push(card);
     }
 
-    console.log('array', array);
-
     setCards(array);
   }
 
   useEffect(() => {
-    const savedData = JSON.parse(localStorage.getItem('maxLevel'));
-    if (!savedData || savedData === 1) {
-      localStorage.setItem('maxLevel', JSON.stringify(currentLevel));
+    const maxLevel = JSON.parse(localStorage.getItem('maxLevel'));
 
+    if (!maxLevel || maxLevel === 1) {
+      localStorage.setItem('maxLevel', JSON.stringify(currentLevel));
       setDisplayHome(true);
     }
-    console.log('coucou', savedData);
     startCurrentLevel(currentLevel);
   }, []);
 
@@ -106,14 +102,21 @@ const App = () => {
       setTimeout(() => {
         setDisplayMessage(true);
         setDisplayButton(true);
-        setTryNumber(tryNumber + 1);
+        setScore(score + 1);
       }, 350);
     }
     if (isWon) {
-      setTryNumber(0);
+      setScore(1);
       setDisplayButton(true);
       setDisplayMessage(true);
       localStorage.setItem('maxLevel', JSON.stringify(currentLevel));
+
+      const memorizedScore = JSON.parse(localStorage.getItem('bestScore'));
+
+      localStorage.setItem(
+        'bestScore',
+        JSON.stringify({ ...memorizedScore, [currentLevel - 1]: score })
+      );
     }
   }, [isLost, isWon]);
 
@@ -156,6 +159,9 @@ const App = () => {
         onClick={() => setDisplayHome(true)}
         size={30}
       />
+      <div>
+        <span>Score : {score}</span>
+      </div>
       {displayButton && (
         <button onClick={() => startCurrentLevel(currentLevel)}>
           {isLost ? 'Recommencer' : 'Continuer'}
@@ -170,7 +176,7 @@ const App = () => {
 
       {isLost && displayMessage && <h1>Perdu</h1>}
 
-      {tryNumber >= 1 && <span>Vous avez perdu {tryNumber} fois</span>}
+      {score > 1 && <span>Vous avez perdu {score} fois</span>}
 
       {cards &&
         !displayLevelSelect &&
