@@ -17,6 +17,7 @@ const Card = ({
 
   const playCard = () => {
     handleClick('card' + card.value);
+
     if (isClickable && currentLevel === 1) {
       firstStepPlay();
     }
@@ -756,7 +757,11 @@ const Card = ({
 
   return (
     <>
-      <div className='card' onClick={() => isClickable && playCard()}>
+      <div
+        className='card'
+        onClick={() => {
+          isClickable && playCard();
+        }}>
         {!cardsClicked['card' + card.value] ? (
           <img src={BackPath} alt='Carte' />
         ) : (

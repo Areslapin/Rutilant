@@ -44,9 +44,14 @@ const App = () => {
   const [displayLevelSelect, setDisplayLevelSelect] = useState(false);
 
   function startCurrentLevel(level) {
+    console.log('startCurrentLevel', level);
     const backValues = [];
     const valueValues = [];
+
+    console.log(backValues, valueValues, 'backValues, valueValues');
+
     for (let i = 0; i < level; i++) {
+      console.log('i', i);
       backValues.push(i + 1);
       valueValues.push(i + 1);
     }
@@ -72,13 +77,15 @@ const App = () => {
     shuffleArray(backValues);
     shuffleArray(valueValues);
 
-    for (let i = 0; i < currentLevel; i++) {
+    for (let i = 0; i < level; i++) {
       const card = {
         back: backValues.pop(),
         value: valueValues.pop(),
       };
       array.push(card);
     }
+
+    console.log('array', array);
 
     setCards(array);
   }
@@ -90,6 +97,7 @@ const App = () => {
 
       setDisplayHome(true);
     }
+    console.log('coucou', savedData);
     startCurrentLevel(currentLevel);
   }, []);
 

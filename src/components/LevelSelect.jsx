@@ -8,7 +8,12 @@ const LevelSelect = ({
   //TODO : faire un useEffect ou autre pour initialiser le jeu au niveau selectionné
   const maxLevel = JSON.parse(localStorage.getItem('maxLevel'));
   const levelSelect = (level) => {
-    console.log(level);
+    if (typeof level === 'string') {
+      level = parseInt(level);
+    }
+    setCurrentLevel(level);
+    startCurrentLevel(level);
+    setDisplayLevelSelect(false);
   };
 
   return (
